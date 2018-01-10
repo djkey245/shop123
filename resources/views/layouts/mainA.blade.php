@@ -85,6 +85,12 @@
             </div>
         </div>
         <div class="span9 ">
+            <div id="alert_info">
+                <div id="alert_info_text">
+
+                </div>
+                <div class="x-exit" onclick="$('#alert_info').hide();">X</div>
+            </div>
             @yield('content')
         </div>
     </div>

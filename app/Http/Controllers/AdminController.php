@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Setting;
 use Illuminate\Http\Request;
 use Validator;
@@ -16,6 +17,8 @@ class AdminController extends Controller
         return view('admin.category');
     }
 
+//////////////////////////////////////////////
+    /// settings!!!!
 
     //function post and ajax request
     public function addCategoryMenuTop(Request $request,Setting $setting){
@@ -137,7 +140,7 @@ class AdminController extends Controller
                 'name.max' => 'Большое имя компании',
                 'year1.required' => 'Введите начальный год',
                 'year1.numeric' => 'Поле начальный год должно быть числом',
-                'year1.digits' => 'Введите начальный год правильно(4f цифры)',
+                'year1.digits' => 'Введите начальный год правильно(4 цифры)',
                 'year2.required' => 'Введите последний год',
                 'year2.numeric' => 'Поле последний год должно быть числом',
                 'year2.digits' => 'Введите последний год правильно(4 цифры)',
@@ -163,6 +166,90 @@ class AdminController extends Controller
             else{
                 return 'false';
             }
+        }
+    }
+
+    //////////////////////////////////////////////
+    /// category!!!!
+
+
+    public function addCategoryGoods(Request $request, Category $category){
+        $itempost = $request->input();
+        unset($itempost['_token']);
+        $Valid = Validator::make($itempost, [
+                'name' => 'required|string|min:2|max:25',
+                'latin_url' => 'required|alpha_dash|min:3',
+                'papa_id' => 'numeric'
+            ]
+            ,[
+                'name.required' => 'Введите имя категории',
+                'name.string' => 'Поле имя категории: должно быть строкою',
+                'name.min' => 'Короткое имя категории',
+                'name.max' => 'Большое имя категории',
+                'latin_url.required' => 'Введите ссылку на категорию',
+                'latin_url.alpha_dash' => 'Поле должно содержать только латинские символы, цифры, знаки подчёркивания (_) и дефисы (-).',
+                'latin_url.min' => 'Длина ссылка должна быть больше 2х символов',
+                'papa_id.numeric' => 'Поле ID папы должно быть числом'
+
+
+            ]);
+        if($Valid->fails()){
+            return json_encode($Valid->errors()->getMessages());
+            //$errors = $categoryTop->messages()->toJson();
+        }
+        else{
+            if($category->insert($itempost)){
+                return 'true';
+            }
+            else{
+                return 'false';
+            }
+        }
+    }
+    public function editCategoryGoods(Request $request, Category $category){
+        $itempost = $request->input();
+        $id = $itempost['id'];
+        unset($itempost['_token']);
+        unset($itempost['id']);
+
+        $Valid = Validator::make($itempost, [
+                'name' => 'required|string|min:2|max:25',
+                'latin_url' => 'required|alpha_dash|min:3',
+                'papa_id' => 'numeric'
+            ]
+            ,[
+                'name.required' => 'Введите имя категории',
+                'name.string' => 'Поле имя категории: должно быть строкою',
+                'name.min' => 'Короткое имя категории',
+                'name.max' => 'Большое имя категории',
+                'latin_url.required' => 'Введите ссылку на категорию',
+                'latin_url.alpha_dash' => 'Поле должно содержать только латинские символы, цифры, знаки подчёркивания (_) и дефисы (-).',
+                'latin_url.min' => 'Длина ссылка должна быть больше 2х символов',
+                'papa_id.numeric' => 'Поле ID папы должно быть числом'
+
+
+            ]);
+        if($Valid->fails()){
+            return json_encode($Valid->errors()->getMessages());
+            //$errors = $categoryTop->messages()->toJson();
+        }
+        else{
+            $itempost += ['updated_at' => date("Y-m-j H:i:s")];
+            if($category->where(['id' => $id])->update($itempost)){
+                return 'true';
+            }
+            else{
+                return 'false';
+            }
+        }
+    }
+    public function deleteCategoryGoods(Request $request, Category $category){
+        $itempost = $request->input();
+        if($category->where(['id' => $itempost['id']])->delete()){
+            return 'true';
+        }
+        else{
+            return 'false';
         }
     }
 

@@ -3,12 +3,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <div id="alert_info">
-            <div id="alert_info_text">
 
-            </div>
-            <div class="x-exit">X</div>
-        </div>
         <div class="block">
             <div class="caption">HEADER</div>
             <div class="un-caption">Топ-меню - Категории</div>

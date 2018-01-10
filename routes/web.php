@@ -42,7 +42,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('category', [
         'uses' => 'AdminController@category',
     ]);
+
     Route::group(['prefix' => 'active'], function (){
+
         Route::post('addCategoryMenuTop', [
             'uses' => 'AdminController@addCategoryMenuTop',
         ]);
@@ -59,6 +61,17 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             return 'fsdfs';
         });
     });
+    Route::group(['prefix' => 'category'], function () {
+        Route::post('addCategoryGoods', [
+            'uses' => 'AdminController@addCategoryGoods',
+        ]);
+        Route::post('editCategoryGoods', [
+            'uses' => 'AdminController@editCategoryGoods',
+        ]);
+        Route::post('deleteCategoryGoods', [
+            'uses' => 'AdminController@deleteCategoryGoods',
+        ]);
+    });
 
 
-});
+    });

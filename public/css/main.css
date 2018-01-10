@@ -89,6 +89,7 @@ body{
     border: 2px solid #034769;
     background-color: #98d0cc;
     text-align: center;
+    z-index: 100;
 }
     #alert_info_text{
         position: relative;
