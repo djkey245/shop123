@@ -1,0 +1,134 @@
+body{
+    background-color: white;
+    color: #034769	;
+}
+.navbar-inverse .navbar-inner{
+    background-color: #034769;
+    background-image: none;
+}
+.navbar-inverse .brand, .navbar-inverse .nav > li > a{
+    color: #63ADD0;
+}
+.panel-bg{
+    background-color: #cef0ff;
+    padding: 13px 3px 3px 13px;
+    margin: auto;
+    margin-left: 20%;
+    display: block;
+    width: 30%;
+}
+.text-email{
+    margin-top: 10px;
+    line-height: 25px;
+    text-align: left;
+    margin-left: 12%;
+}
+.panel-heading{
+    text-align: center;
+    font-weight: 600;
+    line-height: 36px;
+}
+.input-email{
+    text-align: center;
+}
+.category{
+    width: 100% ;
+    font-size: 16px;
+
+    padding-left: 10%;
+    line-height: 34px;
+    border-radius: 8px;
+}
+.category-active{
+    width: 100% ;
+    font-size: 16px;
+    background-color: #98d0cc;
+    padding-left: 10%;
+    line-height: 34px;
+    border-radius: 8px;
+    height: 35px;
+
+}
+.category:hover{
+    background-color: #98d0cc;
+}
+.well, .sidebar-nav{
+}
+.sidebar-table{
+    margin-right: -1px;
+    width: 100%;
+}
+.sidebar-table>tbody>tr{
+    height: 35px;
+}
+.block{
+    border: solid 1px grey;
+    text-align: left;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 10px 10px 10px 10px;
+}
+.block>.caption{
+    text-decoration-line: underline;
+    margin-bottom: 5px;
+}
+.block>.un-caption{
+    font-style: italic;
+    margin-left: 10px;
+}
+.block>.un-table{
+    margin: 15px 15px 15px 15px;
+}
+#alert_info{
+    display: none;
+    width: 20%;
+    height: 120px;
+    position: absolute;
+    right: 5%;
+    top: 41px;
+    border: 2px solid #034769;
+    background-color: #98d0cc;
+    text-align: center;
+}
+    #alert_info_text{
+        position: relative;
+        font-size: 18px;
+        margin-top: 40px;
+    }
+    #alert_info>.x-exit{
+        position: absolute;
+        right: 5px;
+        top: 3px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        color: #034769;
+        background-color: #98d0cc;
+        border-radius: 10px;
+        width: 18px;
+        height: 18px;
+    }
+
+
+.navbar-inverse .navbar-search .search-query{
+    background-color: #034769;
+    width: 100%;
+}
+.navbar-inverse .navbar-search .search-query:focus{
+    background-color: #034769;
+    color: white;
+    text-decoration: none;
+    text-transform: none;
+    text-shadow: none;
+}
+.navbar-search{
+    margin-right: 30px;
+    width: 15%;
+}
+input{
+    width: 95%;
+}
+footer{
+    text-align: center;
+}
