@@ -42,6 +42,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('category', [
         'uses' => 'AdminController@category',
     ]);
+    Route::get('goods', [
+        'uses' => 'AdminController@goods',
+    ]);
 
     Route::group(['prefix' => 'active'], function (){
 

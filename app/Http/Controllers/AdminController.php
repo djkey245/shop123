@@ -16,6 +16,9 @@ class AdminController extends Controller
     public function category(){
         return view('admin.category');
     }
+    public function goods(){
+        return view('admin.goods');
+    }
 
 //////////////////////////////////////////////
     /// settings!!!!
@@ -24,6 +27,7 @@ class AdminController extends Controller
     public function addCategoryMenuTop(Request $request,Setting $setting){
         $itempost = $request->input();
         //dd($itempost);
+        $itempost += ['updated_at' => date("Y-m-j H:i:s")];
         unset($itempost['_token']);
         $categoryTop = Validator::make($itempost, [
             'name' => 'required|string|min:3|max:25',
@@ -49,7 +53,7 @@ class AdminController extends Controller
             //$errors = $categoryTop->messages()->toJson();
         }
         else{
-            $setting->insert(['type' => 'header_c', 'name' => $itempost['name'], 'link' => $itempost['link'], 'weight' => $itempost['weight'] ]);
+            $setting->insert(['type' => 'header_c', 'name' => $itempost['name'], 'link' => $itempost['link'], 'weight' => $itempost['weight'], 'updated_at' => date("Y-m-j H:i:s") ]);
             return 'true';
         }
 
@@ -175,6 +179,8 @@ class AdminController extends Controller
 
     public function addCategoryGoods(Request $request, Category $category){
         $itempost = $request->input();
+        $itempost += ['updated_at' => date("Y-m-j H:i:s")];
+
         unset($itempost['_token']);
         $Valid = Validator::make($itempost, [
                 'name' => 'required|string|min:2|max:25',
