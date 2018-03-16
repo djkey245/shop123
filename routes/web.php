@@ -14,8 +14,14 @@
 Route::get('/', function () {
     return view('layouts.main');
 });
+Route::post('/img_temp', [
+   'uses' => 'HomeController@img_temp'
+]);
 Route::get('/category/{name}', [
     'uses' => 'CategoryController@categoryAction'
+]);
+Route::get('/category/sub/{name}', [
+    'uses' => 'CategoryController@categoryActionSub'
 ]);
 Route::get('/goods/{id}', [
     'uses' => 'GoodsController@goodInfo'
@@ -73,6 +79,15 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         ]);
         Route::post('deleteCategoryGoods', [
             'uses' => 'AdminController@deleteCategoryGoods',
+        ]);
+        Route::post('addCategorySGoods', [
+            'uses' => 'AdminController@addCategorySGoods',
+        ]);
+        Route::post('editCategorySGoods', [
+            'uses' => 'AdminController@editCategorySGoods',
+        ]);
+        Route::post('deleteCategorySGoods', [
+            'uses' => 'AdminController@deleteCategorySGoods',
         ]);
     });
 

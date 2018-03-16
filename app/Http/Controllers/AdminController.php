@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\CategoryS;
 use App\Setting;
 use Illuminate\Http\Request;
 use Validator;
@@ -16,6 +17,7 @@ class AdminController extends Controller
     public function category(){
         return view('admin.category');
     }
+
     public function goods(){
         return view('admin.goods');
     }
@@ -129,6 +131,7 @@ class AdminController extends Controller
             }
         }
     }
+
     public function editFooterSetting(Request $request, Setting $setting){
         $itempost = $request->input();
         unset($itempost['_token']);
@@ -185,7 +188,7 @@ class AdminController extends Controller
         $Valid = Validator::make($itempost, [
                 'name' => 'required|string|min:2|max:25',
                 'latin_url' => 'required|alpha_dash|min:3',
-                'papa_id' => 'numeric'
+
             ]
             ,[
                 'name.required' => 'Введите имя категории',
@@ -195,7 +198,7 @@ class AdminController extends Controller
                 'latin_url.required' => 'Введите ссылку на категорию',
                 'latin_url.alpha_dash' => 'Поле должно содержать только латинские символы, цифры, знаки подчёркивания (_) и дефисы (-).',
                 'latin_url.min' => 'Длина ссылка должна быть больше 2х символов',
-                'papa_id.numeric' => 'Поле ID папы должно быть числом'
+
 
 
             ]);
@@ -221,7 +224,7 @@ class AdminController extends Controller
         $Valid = Validator::make($itempost, [
                 'name' => 'required|string|min:2|max:25',
                 'latin_url' => 'required|alpha_dash|min:3',
-                'papa_id' => 'numeric'
+
             ]
             ,[
                 'name.required' => 'Введите имя категории',
@@ -231,7 +234,7 @@ class AdminController extends Controller
                 'latin_url.required' => 'Введите ссылку на категорию',
                 'latin_url.alpha_dash' => 'Поле должно содержать только латинские символы, цифры, знаки подчёркивания (_) и дефисы (-).',
                 'latin_url.min' => 'Длина ссылка должна быть больше 2х символов',
-                'papa_id.numeric' => 'Поле ID папы должно быть числом'
+
 
 
             ]);
@@ -259,4 +262,95 @@ class AdminController extends Controller
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////
+    /// /////////////CATEGORYS
+    ///
+
+    public function editCategorySGoods(Request $request, CategoryS $categoryS){
+        $itempost = $request->input();
+        $id = $itempost['id'];
+        unset($itempost['_token']);
+        unset($itempost['id']);
+
+        $Valid = Validator::make($itempost, [
+                'name' => 'required|string|min:2|max:25',
+                'link' => 'required|alpha_dash|min:3',
+                'category_id' => 'required|numeric'
+            ]
+            ,[
+                'name.required' => 'Введите имя категории',
+                'name.string' => 'Поле имя категории: должно быть строкою',
+                'name.min' => 'Короткое имя категории',
+                'name.max' => 'Большое имя категории',
+                'latin_url.required' => 'Введите ссылку на категорию',
+                'latin_url.alpha_dash' => 'Поле должно содержать только латинские символы, цифры, знаки подчёркивания (_) и дефисы (-).',
+                'latin_url.min' => 'Длина ссылка должна быть больше 2х символов',
+                'category_id.required' => 'Введите id родительской категории',
+                'category_id.numeric' => 'Должно быть число',
+
+
+
+
+            ]);
+        if($Valid->fails()){
+            return json_encode($Valid->errors()->getMessages());
+            //$errors = $categoryTop->messages()->toJson();
+        }
+        else{
+            $itempost += ['updated_at' => date("Y-m-j H:i:s")];
+            if($categoryS->where(['id' => $id])->update($itempost)){
+                return 'true';
+            }
+            else{
+                return 'false';
+            }
+        }
+    }
+    public function addCategorySGoods(Request $request, CategoryS $categoryS){
+        $itempost = $request->input();
+        $itempost += ['updated_at' => date("Y-m-j H:i:s")];
+
+        unset($itempost['_token']);
+        $Valid = Validator::make($itempost, [
+                'name' => 'required|string|min:2|max:25',
+                'link' => 'required|alpha_dash|min:3',
+                'category_id' => 'required|numeric'
+            ]
+            ,[
+                'name.required' => 'Введите имя категории',
+                'name.string' => 'Поле имя категории: должно быть строкою',
+                'name.min' => 'Короткое имя категории',
+                'name.max' => 'Большое имя категории',
+                'latin_url.required' => 'Введите ссылку на категорию',
+                'latin_url.alpha_dash' => 'Поле должно содержать только латинские символы, цифры, знаки подчёркивания (_) и дефисы (-).',
+                'latin_url.min' => 'Длина ссылка должна быть больше 2х символов',
+                'category_id.required' => 'Введите id родительской категории',
+                'category_id.numeric' => 'Должно быть число',
+
+
+
+
+            ]);
+        if($Valid->fails()){
+            return json_encode($Valid->errors()->getMessages());
+            //$errors = $categoryTop->messages()->toJson();
+        }
+        else{
+            if($categoryS->insert($itempost)){
+                return 'true';
+            }
+            else{
+                return 'false';
+            }
+        }
+    }
+    public function deleteCategorySGoods(Request $request, CategoryS $categoryS){
+        $itempost = $request->input();
+        if($categoryS->where(['id' => $itempost['id']])->delete()){
+            return 'true';
+        }
+        else{
+            return 'false';
+        }
+    }
 }
